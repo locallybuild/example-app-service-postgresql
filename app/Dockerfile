@@ -1,5 +1,5 @@
 # Build stage: install everything (including TypeScript) and compile to dist/.
-FROM node:22 AS build
+FROM node:26 AS build
 WORKDIR /src
 COPY package.json package-lock.json ./
 RUN npm ci
@@ -8,7 +8,7 @@ COPY src ./src
 RUN npm run build
 
 # Runtime stage: production dependencies and the compiled JavaScript only.
-FROM node:22-slim
+FROM node:26-slim
 WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=8080
